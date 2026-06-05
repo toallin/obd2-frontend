@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import RegisterVehicle from "./pages/RegisterVehicle";
 import OBD2 from "./pages/OBD2";
 import MarkTrip from "./pages/MarkTrip";
+import Repairs from "./pages/Repairs";
 
 function App() {
   return (
