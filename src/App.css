@@ -1,0 +1,213 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* FONDO */
+
+.anime-page {
+  width: 100vw;
+  height: 100vh;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+/* OSCURECER FONDO */
+
+.anime-page::before {
+  content: '';
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+}
+
+/* PANEL */
+
+.glass-panel {
+
+  position: relative;
+  z-index: 2;
+
+  width: 420px;
+
+  padding: 40px;
+
+  border-radius: 20px;
+
+  background: rgba(15, 15, 15, 0.65);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow:
+    0 0 30px rgba(255, 0, 0, 0.2),
+    0 0 60px rgba(255, 0, 0, 0.1);
+
+  backdrop-filter: blur(15px);
+}
+
+/* TITULO */
+
+.neon-title {
+
+  text-align: center;
+
+  color: #ffffff;
+
+  font-size: 32px;
+
+  margin-bottom: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 3px;
+
+  text-shadow:
+    0 0 10px #ff0000,
+    0 0 20px #ff0000;
+}
+
+/* SUB */
+
+.system-text {
+
+  text-align: center;
+
+  color: #aaaaaa;
+
+  margin-bottom: 30px;
+
+  font-size: 14px;
+
+  letter-spacing: 1px;
+}
+
+/* FORM */
+
+.anime-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+/* INPUTS */
+
+.neon-input {
+
+  width: 100%;
+
+  padding: 15px;
+
+  border: none;
+
+  outline: none;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-size: 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  transition: 0.3s;
+}
+
+.neon-input:focus {
+
+  border: 1px solid #ff0000;
+
+  box-shadow:
+    0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+/* BOTONES */
+
+.neon-button {
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  margin-top: 10px;
+
+  transition: 0.3s;
+
+  letter-spacing: 1px;
+}
+
+/* LOGIN */
+
+.primary {
+
+  background: #ff0000;
+
+  color: white;
+}
+
+.primary:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 20px rgba(255, 0, 0, 0.6);
+}
+
+/* REGISTER */
+
+.secondary {
+
+  background: transparent;
+
+  border: 1px solid #ffffff30;
+
+  color: white;
+}
+
+.secondary:hover {
+
+  background: white;
+
+  color: black;
+}
+
+/* FOOTER */
+
+.obd-footer {
+
+  margin-top: 25px;
+
+  text-align: center;
+
+  color: #888;
+
+  font-size: 12px;
+}

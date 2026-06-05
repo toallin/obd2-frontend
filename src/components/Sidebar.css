@@ -1,0 +1,152 @@
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background: #111111;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+/* Logo */
+.logo {
+    font-size: 32px;
+    font-weight: 900;
+    color: #00ff88;
+    margin-bottom: 40px;
+    text-shadow: 0 0 15px #00ff88;
+    text-align: left;
+}
+
+/* Profile */
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    padding: 15px;
+    background: #1a1a1a;
+    border-radius: 18px;
+}
+
+.profile-icon {
+    font-size: 50px;
+    color: #00ff88;
+    flex-shrink: 0;
+}
+
+.profile h3 {
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.profile p {
+    color: #999;
+    font-size: 13px;
+    margin: 5px 0 0 0;
+}
+
+/* Menu */
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-item {
+    height: 55px;
+    border: none;
+    border-radius: 14px;
+    background: #1a1a1a;
+    color: white;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-left: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+    text-align: left;
+}
+
+.menu-item svg {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.menu-item:hover {
+    background: #00ff88;
+    color: black;
+    transform: translateX(5px);
+}
+
+.menu-item.active {
+    background: #00ff88;
+    color: black;
+    font-weight: bold;
+    box-shadow: 0 0 20px #00ff88;
+}
+
+.menu-item:hover svg {
+    color: black;
+}
+
+.menu-item.active svg {
+    color: black;
+}
+
+/* Logout */
+.logout-button {
+    height: 55px;
+    border: none;
+    border-radius: 14px;
+    background: red;
+    color: white;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.logout-button svg {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.logout-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px red;
+}
+
+/* Responsive */
+@media(max-width:900px) {
+    .sidebar {
+        width: 100px;
+        padding: 30px 10px;
+    }
+
+    .logo,
+    .profile div,
+    .menu-item span,
+    .logout-button span {
+        display: none;
+    }
+
+    .menu-item {
+        justify-content: center;
+        padding-left: 0;
+    }
+}

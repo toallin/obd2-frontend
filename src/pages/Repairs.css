@@ -1,0 +1,406 @@
+/* ==========================================================================
+   REPAIRS MODULE STYLING
+   ========================================================================== */
+
+/* Vehicle selector grid */
+.repairs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.repair-vehicle-card {
+  background: rgba(30, 41, 59, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.repair-vehicle-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 255, 136, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 255, 136, 0.12);
+}
+
+.repair-vehicle-card .vehicle-icon {
+  font-size: 2.5rem;
+}
+
+.repair-vehicle-card .vehicle-info h3 {
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+}
+
+.repair-vehicle-card .vehicle-info p {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* ==========================================================================
+   REPAIR DETAIL VIEW (Cuaderno)
+   ========================================================================== */
+
+.repair-detail {
+  margin-top: 1.5rem;
+}
+
+.repair-back-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.repair-back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.repair-vehicle-banner {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.08) 0%, rgba(0, 188, 255, 0.08) 100%);
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  border-radius: 14px;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.repair-vehicle-banner h2 {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.repair-vehicle-banner span {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+/* Add new repair button */
+.add-repair-btn {
+  background: linear-gradient(135deg, #00ff88 0%, #00bcff 100%);
+  border: none;
+  color: #0a0a0c;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.add-repair-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+}
+
+/* ==========================================================================
+   REPAIR LOG ENTRIES (Timeline)
+   ========================================================================== */
+
+.repair-timeline {
+  position: relative;
+  padding-left: 28px;
+}
+
+.repair-timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, #00ff88 0%, rgba(0, 255, 136, 0.05) 100%);
+  border-radius: 2px;
+}
+
+.repair-entry {
+  position: relative;
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 1.3rem 1.5rem;
+  margin-bottom: 1.2rem;
+  transition: all 0.25s;
+}
+
+.repair-entry::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 1.5rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00ff88;
+  border: 2px solid #0a0a0c;
+  z-index: 1;
+}
+
+.repair-entry:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.repair-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.repair-entry-type {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #00ff88;
+  margin: 0;
+}
+
+.repair-entry-date {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.repair-entry-desc {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 0.8rem 0;
+}
+
+.repair-entry-meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.repair-meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.repair-meta-label {
+  font-size: 0.7rem;
+  color: #475569;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.repair-meta-value {
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+.repair-entry-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.repair-action-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.repair-action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.repair-action-btn.delete:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* Empty state */
+.repair-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #64748b;
+}
+
+.repair-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   MODAL (Formulario para agregar / editar)
+   ========================================================================== */
+
+.repair-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.repair-modal {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.repair-modal h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+}
+
+.repair-form-group {
+  margin-bottom: 1.2rem;
+}
+
+.repair-form-group label {
+  display: block;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.4rem;
+}
+
+.repair-form-group select,
+.repair-form-group input,
+.repair-form-group textarea {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.repair-form-group select:focus,
+.repair-form-group input:focus,
+.repair-form-group textarea:focus {
+  outline: none;
+  border-color: #00ff88;
+}
+
+.repair-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.repair-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.repair-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.repair-modal-cancel {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.repair-modal-cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.repair-modal-save {
+  background: linear-gradient(135deg, #00ff88 0%, #00bcff 100%);
+  border: none;
+  color: #0a0a0c;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.repair-modal-save:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .repairs-grid {
+    grid-template-columns: 1fr;
+  }
+  .repair-form-row {
+    grid-template-columns: 1fr;
+  }
+}
