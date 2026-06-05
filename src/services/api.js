@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    // Forzamos la URL real directamente en el código para romper el bucle
-    baseURL: 'https://obd2-backend.onrender.com/api'
+    baseURL: import.meta.env.VITE_API_URL, // Lee directamente el .env
 });
 
 export default api;

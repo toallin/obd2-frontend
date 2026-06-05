@@ -20,7 +20,7 @@ function OBD2() {
     useEffect(() => {
         const fetchVehicles = async () => {
             try {
-                const res = await api.get('/api/vehicles/my');
+                const res = await api.get('/vehicles/my');
                 setVehicles(res.data.vehicles || []);
             } catch (error) {
                 console.error("Error al cargar vehículos:", error);

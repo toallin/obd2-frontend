@@ -31,7 +31,7 @@ function Sidebar({ activePage }) {
           setLoading(false);
           return;
         }
-        const res = await api.get('/api/auth/profile');
+        const res = await api.get('/auth/profile');
         setUser(res.data.user);
       } catch (error) {
         console.error("Error al cargar perfil:", error);
