@@ -43,13 +43,8 @@ body {
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Main Content */
@@ -61,15 +56,8 @@ body {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Topbar */
@@ -745,7 +733,6 @@ body {
 }
 
 @media (max-width: 900px) {
-
     .dashboard-loading-overlay,
     .main-content {
         margin-left: 100px;
@@ -756,7 +743,7 @@ body {
     .info-layout-grid {
         grid-template-columns: 1fr;
     }
-
+    
     .grid-span-2 {
         grid-column: auto;
     }
@@ -767,11 +754,9 @@ body {
         padding: 20px;
         margin-left: 0;
     }
-
     .topbar h1 {
         font-size: 30px;
     }
-
     .dashboard-loading-overlay {
         margin-left: 0;
     }
