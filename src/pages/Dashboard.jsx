@@ -11,15 +11,13 @@ function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     const fetchVehicles = async () => {
-
       try {
-
         const token = localStorage.getItem('token');
 
+        // USAMOS LA VARIABLE DE ENTORNO EN LUGAR DE LOCALHOST
         const res = await fetch(
-          'http://localhost:3000/api/vehicles/my',
+          `${import.meta.env.VITE_API_URL}/vehicles/my`,
           {
             method: 'GET',
             headers: {
@@ -30,18 +28,14 @@ function Dashboard() {
         );
 
         const data = await res.json();
-
         setVehicles(data.vehicles || []);
 
       } catch (error) {
-
         console.log(error);
-
       }
     };
 
     fetchVehicles();
-
   }, []);
 
   return (

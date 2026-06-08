@@ -38,11 +38,11 @@ function Repairs() {
 
   const token = localStorage.getItem('token');
 
-  // Cargar vehículos
+  // 1. CARGAR VEHÍCULOS (CON VARIABLES DE ENTORNO)
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/vehicles/my', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/vehicles/my`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -50,17 +50,18 @@ function Repairs() {
       } catch (err) {
         console.error('Error cargando vehículos:', err);
       } finally {
+        // CORREGIDO: Usar la función actualizadora del estado
         setLoading(false);
       }
     };
     fetchVehicles();
-  }, []);
+  }, [token]);
 
-  // Cargar reparaciones de un vehículo
+  // 2. CARGAR REPARACIONES DE UN VEHÍCULO
   const fetchRepairs = async (vehicleId) => {
     setLoadingRepairs(true);
     try {
-      const res = await fetch(`http://localhost:3000/api/repairs/vehicle/${vehicleId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/repairs/vehicle/${vehicleId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -112,43 +113,53 @@ function Repairs() {
     setShowModal(true);
   };
 
-  // Guardar (crear o actualizar)
+  // 3. GUARDAR REPARACIÓN (PUT / POST)
   const handleSave = async () => {
     try {
+      // Creamos una copia del formulario convirtiendo los campos a números
+      const dataToSend = {
+        ...form,
+        mileageKm: form.mileageKm ? parseInt(form.mileageKm, 10) : 0,
+        cost: form.cost ? parseFloat(form.cost) : 0
+      };
+
       if (editingRepair) {
-        // Actualizar
-        await fetch(`http://localhost:3000/api/repairs/${editingRepair._id}`, {
+        // Actualizar (PUT)
+        await fetch(`${import.meta.env.VITE_API_URL}/repairs/${editingRepair._id || editingRepair.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(form),
+          body: JSON.stringify(dataToSend),
         });
       } else {
-        // Crear
-        await fetch('http://localhost:3000/api/repairs', {
+        // Crear (POST)
+        await fetch(`${import.meta.env.VITE_API_URL}/repairs`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ ...form, vehicleId: selectedVehicle._id }),
+          body: JSON.stringify({
+            ...dataToSend,
+            vehicleId: selectedVehicle._id || selectedVehicle.id
+          }),
         });
       }
 
       setShowModal(false);
-      fetchRepairs(selectedVehicle._id);
+      fetchRepairs(selectedVehicle._id || selectedVehicle.id);
     } catch (err) {
       console.error('Error guardando reparación:', err);
     }
   };
 
-  // Eliminar
+  // 4. ELIMINAR REPARACIÓN
   const handleDelete = async (repairId) => {
     if (!window.confirm('¿Estás seguro de eliminar este registro?')) return;
     try {
-      await fetch(`http://localhost:3000/api/repairs/${repairId}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/repairs/${repairId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });

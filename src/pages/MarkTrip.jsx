@@ -39,7 +39,8 @@ function MarkTrip() {
     const fetchVehicles = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await fetch('http://localhost:3000/api/vehicles/my', {
+        // CAMBIAMOS http://localhost:3000/api POR LA VARIABLE DE ENTORNO
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/vehicles/my`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
@@ -311,7 +312,7 @@ function MarkTrip() {
 
       console.log("Enviando este objeto al backend:", bodyPayload);
 
-      const res = await fetch('http://localhost:3000/api/trips', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/trips`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

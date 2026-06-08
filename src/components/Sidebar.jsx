@@ -31,7 +31,7 @@ function Sidebar({ activePage }) {
           return;
         }
 
-        const res = await fetch('http://localhost:3000/api/auth/profile', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

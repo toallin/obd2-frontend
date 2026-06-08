@@ -24,13 +24,9 @@ function RegisterVehicle() {
 
     // SUBIR IMAGEN
     const handleImage = (e) => {
-
         const file = e.target.files[0];
-
         if (file) {
-
             setImage(file);
-
             setPreview(
                 URL.createObjectURL(file)
             );
@@ -39,39 +35,29 @@ function RegisterVehicle() {
 
     // REGISTRAR VEHICULO
     const registerVehicle = async (e) => {
-
         e.preventDefault();
 
         try {
-
-            const token =
-                localStorage.getItem('token');
-
+            const token = localStorage.getItem('token');
             const formData = new FormData();
 
             formData.append('brand', brand);
             formData.append('model', model);
             formData.append('year', year);
 
-            // imagen
+            // Imagen
             if (image) {
-
-                formData.append(
-                    'image',
-                    image
-                );
+                formData.append('image', image);
             }
 
+            // CORREGIDO: Dinámico para Local y Producción (Render) usando la URL base limpia
             const res = await fetch(
-                'http://localhost:3000/api/vehicles/register',
+                `${import.meta.env.VITE_API_URL}/vehicles/register`,
                 {
                     method: 'POST',
-
                     headers: {
-                        Authorization:
-                            `Bearer ${token}`
+                        Authorization: `Bearer ${token}`
                     },
-
                     body: formData
                 }
             );
@@ -80,19 +66,13 @@ function RegisterVehicle() {
 
             // ERROR SERVER
             if (!res.ok) {
-
                 alert(
-                    data.message ||
-                    'Error al registrar'
+                    data.message || 'Error al registrar'
                 );
-
                 return;
             }
 
-            alert(
-                'Vehículo registrado correctamente 🚗'
-            );
-
+            alert('Vehículo registrado correctamente 🚗');
             console.log(data);
 
             // LIMPIAR
@@ -106,14 +86,11 @@ function RegisterVehicle() {
             navigate('/dashboard');
 
         } catch (error) {
-
             console.log(error);
-
-            alert(
-                'Error del servidor'
-            );
+            alert('Error del servidor');
         }
     };
+
     return (
         <div className="dashboard-container">
             <Sidebar activePage="register-vehicle" />
@@ -169,9 +146,9 @@ function RegisterVehicle() {
                                 {image ? image.name : 'Subir Imagen'}
                                 <input
                                     type="file"
+                                    hidden
                                     accept="image/*"
                                     onChange={handleImage}
-                                    hidden
                                 />
                             </label>
 

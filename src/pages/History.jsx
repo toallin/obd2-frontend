@@ -45,8 +45,8 @@ function History() {
       try {
         const token = localStorage.getItem('token');
 
-        // 1. Obtener todos los vehículos registrados del usuario
-        const vehRes = await fetch('http://localhost:3000/api/vehicles/my', {
+        // 1. Obtener todos los vehículos usando la variable de entorno
+        const vehRes = await fetch(`${import.meta.env.VITE_API_URL}/vehicles/my`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -54,8 +54,8 @@ function History() {
         const vehiclesData = await vehRes.json();
         const vehiclesList = vehiclesData.vehicles || [];
 
-        // 2. Obtener todos los viajes del usuario
-        const tripsRes = await fetch('http://localhost:3000/api/trips', {
+        // 2. Obtener todos los viajes usando la variable de entorno
+        const tripsRes = await fetch(`${import.meta.env.VITE_API_URL}/trips`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -72,8 +72,7 @@ function History() {
               })
               : [];
 
-            // Dado que el backend devuelve los viajes ordenados por fecha DESC (-1),
-            // el primer elemento es el más reciente (el último viaje realizado por este vehículo).
+            // El primer elemento es el más reciente (el último viaje realizado por este vehículo).
             const latestTrip = vehicleTrips.length > 0 ? vehicleTrips[0] : null;
 
             return {
@@ -87,7 +86,7 @@ function History() {
       } catch (err) {
         console.error("Error al obtener los datos del historial:", err);
       } finally {
-        setLoading(false);
+        setLoading(false); //  ¡Ahora sí llamamos al modificador de estado!
       }
     };
 
