@@ -395,12 +395,66 @@
   box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
 }
 
-/* Responsive */
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 @media (max-width: 768px) {
+  .main-content {
+    margin-left: 0 !important;
+    padding: 70px 16px 20px 16px !important;
+  }
+
   .repairs-grid {
     grid-template-columns: 1fr;
   }
+
   .repair-form-row {
     grid-template-columns: 1fr;
+  }
+
+  .repair-vehicle-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .repair-entry-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 65px 12px 20px 12px !important;
+  }
+
+  .repair-modal {
+    padding: 1.4rem;
+    border-radius: 12px;
+  }
+
+  .repair-modal-actions {
+    flex-direction: column;
+  }
+
+  .repair-modal-cancel,
+  .repair-modal-save {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .repair-entry {
+    padding: 1rem;
+  }
+
+  .repair-entry-meta {
+    gap: 0.8rem;
+  }
+
+  .repair-timeline {
+    padding-left: 20px;
   }
 }

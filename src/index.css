@@ -302,6 +302,9 @@ body {
   text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
 }
 
+/* =========================================
+   RESPONSIVE GLOBAL
+   ========================================= */
 @media (max-width: 768px) {
   .dash-header {
     flex-direction: column;
@@ -310,9 +313,37 @@ body {
   }
   .main-content {
     margin-left: 0 !important;
-    padding: 70px 20px 20px 20px !important;
+    padding: 70px 16px 20px 16px !important;
   }
   .dashboard-loading-overlay {
     margin-left: 0 !important;
+  }
+  .glass-panel {
+    padding: 24px 20px;
+    max-width: 95vw;
+  }
+  .neon-title {
+    font-size: 1.8rem;
+  }
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 65px 12px 20px 12px !important;
+  }
+  .glass-panel {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+  .neon-title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+  .neon-button {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
   }
 }

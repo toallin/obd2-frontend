@@ -606,9 +606,9 @@
   100% { transform: rotate(360deg); }
 }
 
-/* ==========================================================================
+/* =========================================
    MOBILE & TABLET RESPONSIVE QUERIES
-   ========================================================================== */
+   ========================================= */
 
 @media (max-width: 1024px) {
   .connection-layout {
@@ -617,8 +617,13 @@
 }
 
 @media (max-width: 768px) {
+  .main-content {
+    margin-left: 0 !important;
+    padding: 70px 16px 20px 16px !important;
+  }
+
   .connection-layout .card {
-    padding: 20px;
+    padding: 18px;
     min-height: auto;
   }
 
@@ -629,15 +634,69 @@
 
   .terminal-body {
     height: 200px;
+    font-size: 11px;
+  }
+
+  .card-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .status-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .connection-layout h2 {
+    font-size: 18px;
   }
 }
 
 @media (max-width: 480px) {
+  .main-content {
+    padding: 65px 10px 20px 10px !important;
+  }
+
   .sim-buttons-grid {
     grid-template-columns: 1fr;
   }
 
   .sim-buttons-grid button:first-child {
     grid-column: span 1;
+  }
+
+  .connection-layout .card {
+    padding: 14px;
+  }
+
+  .vehicle-select-item {
+    padding: 10px 12px;
+  }
+
+  .terminal-body {
+    height: 170px;
+    font-size: 10px;
+  }
+
+  .btn-connect-real {
+    height: 46px;
+    font-size: 14px;
+  }
+
+  .btn-sync-backend {
+    height: 44px;
+    font-size: 14px;
+  }
+
+  .dtc-results-section {
+    padding: 14px;
+  }
+
+  .translation-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
   }
 }

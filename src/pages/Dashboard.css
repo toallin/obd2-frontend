@@ -725,7 +725,9 @@ body {
     border-radius: 2px;
 }
 
-/* Responsive adjustments */
+/* =========================================
+   RESPONSIVE BREAKPOINTS
+   ========================================= */
 @media (max-width: 1200px) {
     .charts-layout-grid {
         grid-template-columns: 1fr;
@@ -735,29 +737,93 @@ body {
 @media (max-width: 900px) {
     .dashboard-loading-overlay,
     .main-content {
-        margin-left: 100px;
+        margin-left: 0;
     }
 }
 
 @media (max-width: 768px) {
+    .main-content {
+        margin-left: 0 !important;
+        padding: 70px 16px 20px 16px !important;
+    }
+
+    .dashboard-loading-overlay {
+        margin-left: 0 !important;
+    }
+
     .info-layout-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .grid-span-2 {
         grid-column: auto;
     }
+
+    .topbar h1 {
+        font-size: 26px;
+    }
+
+    .topbar p {
+        font-size: 13px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .stat-icon-wrapper {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+        border-radius: 12px;
+    }
+
+    .stat-details h2 {
+        font-size: 20px;
+    }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
     .main-content {
-        padding: 20px;
-        margin-left: 0;
+        padding: 65px 12px 20px 12px !important;
     }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 14px 12px;
+        gap: 10px;
+        border-radius: 14px;
+    }
+
+    .stat-icon-wrapper {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .stat-details h2 {
+        font-size: 18px;
+    }
+
+    .stat-details p {
+        font-size: 11px;
+    }
+
     .topbar h1 {
-        font-size: 30px;
+        font-size: 22px;
     }
-    .dashboard-loading-overlay {
-        margin-left: 0;
+
+    .dashboard-section {
+        padding: 18px;
     }
 }

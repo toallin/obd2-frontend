@@ -16,6 +16,19 @@
   overflow-y: auto;
 }
 
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0 !important;
+    padding: 70px 16px 20px 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 65px 12px 20px 12px !important;
+  }
+}
+
 /* =========================
    FORMULARIO
 ========================= */
@@ -149,4 +162,18 @@
   .grid-cards {
     grid-template-columns: 1fr;
   }
+
+  .map-container {
+    height: 260px;
+  }
 }
+
+@media (max-width: 480px) {
+  .map-container {
+    height: 220px;
+  }
+
+  .analysis-panel {
+    padding: 0.8rem;
+  }
+}

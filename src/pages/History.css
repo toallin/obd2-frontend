@@ -322,9 +322,58 @@
   margin-bottom: 1rem;
 }
 
-/* Responsive adjustments */
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 @media (max-width: 768px) {
+  .main-content {
+    margin-left: 0 !important;
+    padding: 70px 16px 20px 16px !important;
+  }
+
   .history-grid {
     grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .topbar h1 {
+    font-size: 1.6rem;
+  }
+
+  .vehicle-history-card {
+    padding: 1.2rem;
+  }
+
+  .card-header h2 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 65px 12px 20px 12px !important;
+  }
+
+  .history-grid {
+    gap: 1rem;
+  }
+
+  .topbar h1 {
+    font-size: 1.4rem;
+  }
+
+  .vehicle-history-card {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .metrics-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.4rem;
   }
 }
