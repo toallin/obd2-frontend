@@ -9,6 +9,7 @@ import RegisterVehicle from "./pages/RegisterVehicle";
 import OBD2 from "./pages/OBD2";
 import MarkTrip from "./pages/MarkTrip";
 import Repairs from "./pages/Repairs";
+import Connection from "./pages/Connection";
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
 
         {/* Reparaciones */}
         <Route path="/repairs" element={<Repairs />} />
+
+        {/* Conexión OBD2 por Bluetooth */}
+        <Route path="/conexion" element={<Connection />} />
       </Routes>
     </BrowserRouter>
   );

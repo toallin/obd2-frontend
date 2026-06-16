@@ -131,22 +131,110 @@
     box-shadow: 0 0 20px red;
 }
 
+/* Icon pulse animation for connection link */
+.neon-pulse-icon {
+    animation: neonIconPulse 2s infinite alternate;
+}
+
+@keyframes neonIconPulse {
+    0% { filter: drop-shadow(0 0 2px #00ff88); color: #fff; }
+    100% { filter: drop-shadow(0 0 8px #00ff88); color: #00ff88; }
+}
+
+/* Mobile Hamburger Toggle Button */
+.mobile-toggle-btn {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(17, 17, 17, 0.85);
+    border: 1px solid rgba(0, 255, 136, 0.4);
+    color: #00ff88;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1005;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 255, 136, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-toggle-btn:hover {
+    background: #00ff88;
+    color: black;
+    box-shadow: 0 0 15px #00ff88;
+    transform: scale(1.05);
+}
+
+.mobile-toggle-btn.sidebar-open {
+    left: 235px; /* Shifts with sidebar drawer */
+    border-color: rgba(255, 42, 42, 0.6);
+    color: #ff2a2a;
+    background: rgba(17, 17, 17, 0.95);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 42, 42, 0.2);
+}
+
+.mobile-toggle-btn.sidebar-open:hover {
+    background: #ff2a2a;
+    color: white;
+    box-shadow: 0 0 15px #ff2a2a;
+}
+
+/* Backdrop Overlay for closing drawer */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 998;
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 /* Responsive */
-@media(max-width:900px) {
-    .sidebar {
-        width: 100px;
-        padding: 30px 10px;
+@media(max-width:768px) {
+    .mobile-toggle-btn {
+        display: flex;
+    }
+    
+    .sidebar-backdrop {
+        display: block;
     }
 
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 280px !important;
+        box-shadow: 10px 0 30px rgba(0,0,0,0.7);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    /* Override any display none to show full sidebar contents in drawer */
     .logo,
     .profile div,
     .menu-item span,
     .logout-button span {
-        display: none;
+        display: block !important;
     }
 
     .menu-item {
-        justify-content: center;
-        padding-left: 0;
+        justify-content: flex-start !important;
+        padding-left: 20px !important;
     }
 }
+

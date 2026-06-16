@@ -8,13 +8,17 @@ import {
   FaSignOutAlt,
   FaUserCircle,
   FaHistory,
-  FaWrench
+  FaWrench,
+  FaBluetooth,
+  FaBars,
+  FaTimes
 } from 'react-icons/fa';
 import './Sidebar.css';
 
 function Sidebar({ activePage }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // ← Añadir estado de carga
+  const [loading, setLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false); // Mobile drawer state
   const navigate = useNavigate();
 
   const logout = () => {
@@ -44,7 +48,6 @@ function Sidebar({ activePage }) {
           setUser(data.user);
         } else {
           console.warn('No se pudo obtener el perfil');
-          // Si el token es inválido, cerrar sesión automáticamente
           if (res.status === 401) {
             localStorage.removeItem('token');
             navigate('/');
@@ -53,12 +56,17 @@ function Sidebar({ activePage }) {
       } catch (error) {
         console.error("Error fetching user profile:", error);
       } finally {
-        setLoading(false); // ← Terminar carga
+        setLoading(false);
       }
     };
 
     fetchUser();
-  }, [navigate]); // ← Añadir navigate como dependencia
+  }, [navigate]);
+
+  const handleNavigate = (path) => {
+    navigate(path);
+    setIsOpen(false); // Close sidebar on mobile
+  };
 
   // Mostrar loading mientras se carga el perfil
   if (loading) {
@@ -77,74 +85,96 @@ function Sidebar({ activePage }) {
   }
 
   return (
-    <div className="sidebar">
-      <div>
-        <div className="logo">OBD-II</div>
+    <>
+      {/* Floating Toggle Button for Mobile */}
+      <button 
+        className={`mobile-toggle-btn ${isOpen ? 'sidebar-open' : ''}`} 
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Menu"
+      >
+        {isOpen ? <FaTimes /> : <FaBars />}
+      </button>
 
-        <div className="profile">
-          <FaUserCircle className="profile-icon" />
-          <div>
-            <h3>{user?.email || 'Usuario'}</h3>
-            <p>Sistema Vehicular</p>
+      {/* Backdrop overlay for closing the sidebar when clicking outside */}
+      {isOpen && <div className="sidebar-backdrop" onClick={() => setIsOpen(false)}></div>}
+
+      <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <div>
+          <div className="logo">OBD-II</div>
+
+          <div className="profile">
+            <FaUserCircle className="profile-icon" />
+            <div>
+              <h3>{user?.email || 'Usuario'}</h3>
+              <p>Sistema Vehicular</p>
+            </div>
+          </div>
+
+          <div className="menu">
+            <button
+              className={`menu-item ${activePage === 'dashboard' ? 'active' : ''}`}
+              onClick={() => handleNavigate('/dashboard')}
+            >
+              <FaTachometerAlt />
+              <span>Dashboard</span>
+            </button>
+
+            <button
+              className={`menu-item ${activePage === 'register-vehicle' ? 'active' : ''}`}
+              onClick={() => handleNavigate('/register-vehicle')}
+            >
+              <FaCar />
+              <span>Registrar Auto</span>
+            </button>
+
+            <button
+              className={`menu-item ${activePage === 'conexion' ? 'active' : ''}`}
+              onClick={() => handleNavigate('/conexion')}
+            >
+              <FaBluetooth className="neon-pulse-icon" />
+              <span>Conexión OBD2</span>
+            </button>
+
+            <button
+              className={`menu-item ${activePage === 'mark-trip' ? 'active' : ''}`}
+              onClick={() => handleNavigate('/mark-trip')}
+            >
+              <FaMapMarkedAlt />
+              <span>Marcar Viaje</span>
+            </button>
+
+            <button
+              className={`menu-item ${activePage === 'obd2' ? 'active' : ''}`}
+              onClick={() => handleNavigate('/obd2')}
+            >
+              <FaCode />
+              <span>Códigos OBD2</span>
+            </button>
+
+            <button
+              className={`menu-item ${activePage === 'history' ? 'active' : ''}`}
+              onClick={() => handleNavigate('/history')}
+            >
+              <FaHistory />
+              <span>Historial</span>
+            </button>
+
+            <button
+              className={`menu-item ${activePage === 'repairs' ? 'active' : ''}`}
+              onClick={() => handleNavigate('/repairs')}
+            >
+              <FaWrench />
+              <span>Reparaciones</span>
+            </button>
           </div>
         </div>
 
-        <div className="menu">
-          <button
-            className={`menu-item ${activePage === 'dashboard' ? 'active' : ''}`}
-            onClick={() => navigate('/dashboard')}
-          >
-            <FaTachometerAlt />
-            <span>Dashboard</span>
-          </button>
-
-          <button
-            className={`menu-item ${activePage === 'register-vehicle' ? 'active' : ''}`}
-            onClick={() => navigate('/register-vehicle')}
-          >
-            <FaCar />
-            <span>Registrar Auto</span>
-          </button>
-
-          <button
-            className={`menu-item ${activePage === 'mark-trip' ? 'active' : ''}`}
-            onClick={() => navigate('/mark-trip')}
-          >
-            <FaMapMarkedAlt />
-            <span>Marcar Viaje</span>
-          </button>
-
-          <button
-            className={`menu-item ${activePage === 'obd2' ? 'active' : ''}`}
-            onClick={() => navigate('/obd2')}
-          >
-            <FaCode />
-            <span>Códigos OBD2</span>
-          </button>
-
-          <button
-            className={`menu-item ${activePage === 'history' ? 'active' : ''}`}
-            onClick={() => navigate('/history')}
-          >
-            <FaHistory />
-            <span>Historial</span>
-          </button>
-
-          <button
-            className={`menu-item ${activePage === 'repairs' ? 'active' : ''}`}
-            onClick={() => navigate('/repairs')}
-          >
-            <FaWrench />
-            <span>Reparaciones</span>
-          </button>
-        </div>
+        <button onClick={logout} className="logout-button">
+          <FaSignOutAlt />
+          <span>Cerrar Sesión</span>
+        </button>
       </div>
-
-      <button onClick={logout} className="logout-button">
-        <FaSignOutAlt />
-        <span>Cerrar Sesión</span>
-      </button>
-    </div>
+    </>
   );
 }
 
