@@ -10,6 +10,7 @@ import OBD2 from "./pages/OBD2";
 import MarkTrip from "./pages/MarkTrip";
 import Repairs from "./pages/Repairs";
 import Connection from "./pages/Connection";
+import SetupTwoFactor from "./pages/SetupTwoFactor";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
 
         {/* Registro */}
         <Route path="/register" element={<Register />} />
+
+        {/* Configuración 2FA (tras registro) */}
+        <Route path="/setup-2fa" element={<SetupTwoFactor />} />
 
         {/* Dashboard */}
         <Route path="/dashboard" element={<Dashboard />} />

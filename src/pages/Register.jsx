@@ -24,9 +24,7 @@ function Register() {
                 password
             });
 
-            alert('Usuario registrado');
-
-            navigate('/');
+            navigate('/setup-2fa', { state: { email } });
 
         } catch (error) {
 

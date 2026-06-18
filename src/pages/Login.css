@@ -343,3 +343,169 @@
         font-size: 36px;
     }
 }
+
+/* =============================================
+   LOGIN ERROR MESSAGE
+   ============================================= */
+
+.login-error {
+    background: rgba(255, 80, 80, 0.10);
+    border: 1px solid rgba(255, 80, 80, 0.30);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: #ff6b6b;
+    font-size: 13px;
+    text-align: center;
+    animation: errorShake 0.4s ease;
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-6px); }
+    75%       { transform: translateX(6px); }
+}
+
+/* =============================================
+   SPINNER (en botones)
+   ============================================= */
+
+.login-spinner {
+    animation: loginSpin 1s linear infinite;
+}
+
+@keyframes loginSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* =============================================
+   TOTP STEP - dentro de login-container
+   ============================================= */
+
+.totp-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.totp-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.totp-shield {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+    font-size: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:
+        0 0 25px rgba(0, 198, 255, 0.5),
+        0 0 50px rgba(0, 114, 255, 0.2);
+    animation: shieldPulse 3s ease-in-out infinite;
+}
+
+@keyframes shieldPulse {
+    0%, 100% { box-shadow: 0 0 25px rgba(0,198,255,0.5), 0 0 50px rgba(0,114,255,0.2); }
+    50%       { box-shadow: 0 0 40px rgba(0,198,255,0.8), 0 0 70px rgba(0,114,255,0.3); }
+}
+
+.totp-title {
+    color: white;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #00c6ff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.totp-desc {
+    text-align: center;
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.totp-desc strong {
+    color: #00c6ff;
+    -webkit-text-fill-color: #00c6ff;
+}
+
+.totp-email-badge {
+    background: rgba(0, 198, 255, 0.08);
+    border: 1px solid rgba(0, 198, 255, 0.2);
+    border-radius: 20px;
+    padding: 5px 16px;
+    color: #00c6ff;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* TOTP code input */
+.totp-code-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.totp-code-input {
+    width: 100%;
+    padding: 18px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 14px;
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 198, 255, 0.05);
+    border: 2px solid rgba(0, 198, 255, 0.20);
+    border-radius: 16px;
+    color: #00c6ff;
+    outline: none;
+    transition: 0.3s;
+    caret-color: #00c6ff;
+}
+
+.totp-code-input::placeholder {
+    color: rgba(0, 198, 255, 0.20);
+    letter-spacing: 8px;
+}
+
+.totp-code-input:focus {
+    border-color: #00c6ff;
+    box-shadow:
+        0 0 25px rgba(0, 198, 255, 0.30),
+        0 0 0 1px rgba(0, 198, 255, 0.08) inset;
+}
+
+.totp-code-bar {
+    width: 70%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00c6ff, transparent);
+    animation: barAnim 2s ease-in-out infinite;
+}
+
+@keyframes barAnim {
+    0%, 100% { opacity: 0.3; }
+    50%       { opacity: 0.9; }
+}
+
+.totp-hint {
+    text-align: center;
+    color: #666;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.totp-error-shake {
+    animation: errorShake 0.4s ease;
+}

@@ -31,7 +31,8 @@
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: 2rem;
   margin-top: 1.5rem;
-  align-items: stretch; /* Cards in the same row will stretch to match the tallest one */
+  align-items: stretch;
+  /* Cards in the same row will stretch to match the tallest one */
 }
 
 /* ==========================================================================
@@ -50,7 +51,8 @@
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  height: 100%; /* Stretch to fill row height */
+  height: 100%;
+  /* Stretch to fill row height */
 }
 
 /* Glow effects depending on safety state */
@@ -178,7 +180,8 @@
   padding: 1.2rem;
   border: 1px solid rgba(255, 255, 255, 0.04);
   margin-bottom: 1.2rem;
-  flex-grow: 1; /* Stretch to fill available vertical space */
+  flex-grow: 1;
+  /* Stretch to fill available vertical space */
   display: flex;
   flex-direction: column;
   justify-content: center;
