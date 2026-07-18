@@ -129,11 +129,14 @@ function RegisterVehicle() {
                                 />
                             </div>
 
-                            {/* FECHA */}
+                            {/* AÑO */}
                             <div className="input-box">
                                 <FaCalendarAlt className="input-icon" />
                                 <input
-                                    type="date"
+                                    type="number"
+                                    placeholder="Año del auto"
+                                    min="1900"
+                                    max="2099"
                                     value={year}
                                     onChange={(e) => setYear(e.target.value)}
                                     required

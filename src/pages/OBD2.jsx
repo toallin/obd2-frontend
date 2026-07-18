@@ -1,12 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 
 import {
     FaCar,
     FaCheckCircle,
-    FaFileUpload,
     FaCarSide,
-    FaCalendarAlt
+    FaCalendarAlt,
+    FaChevronDown,
+    FaChevronUp,
+    FaTools,
+    FaVolumeUp,
+    FaInfoCircle
 } from 'react-icons/fa';
 
 import './OBD2.css';
@@ -16,8 +20,16 @@ function OBD2() {
     const [vehicles, setVehicles] = useState([]);
     const [selectedVehicle, setSelectedVehicle] = useState(null);
     const [results, setResults] = useState([]);
+    const [expandedCodes, setExpandedCodes] = useState({});
 
-    const fileInputRef = useRef(null);
+    const toggleCode = (index) => {
+        setExpandedCodes(prev => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
+
+
 
     // 1. CARGAR VEHÍCULOS (CON VARIABLE DE ENTORNO)
     useEffect(() => {
@@ -69,8 +81,10 @@ function OBD2() {
 
                 if (data.obd2Data && data.obd2Data.length > 0) {
                     setResults(data.obd2Data[0].translations || []);
+                    setExpandedCodes({});
                 } else {
                     setResults([]);
+                    setExpandedCodes({});
                 }
             } catch (error) {
                 console.error("Error cargando historial:", error);
@@ -81,60 +95,7 @@ function OBD2() {
         fetchVehicleHistory();
     }, [selectedVehicle]);
 
-    // 3. SUBIR Y ENVIAR TXT (CON VARIABLE DE ENTORNO)
-    const handleUploadAndSend = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
 
-        if (!selectedVehicle) {
-            alert('Selecciona un vehículo');
-            return;
-        }
-
-        try {
-            const content = await file.text();
-            console.log("📄 CONTENIDO TXT:", content);
-
-            if (!content || content.trim() === "") {
-                alert(`El archivo "${file.name}" (${file.size} bytes) está vacío o no se pudo leer. Asegúrate de que tenga códigos OBD2 escritos.`);
-                return;
-            }
-
-            const token = localStorage.getItem('token');
-            const res = await fetch(
-                `${import.meta.env.VITE_API_URL}/vehicledata/upload`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        vehicle: selectedVehicle._id,
-                        obd2Codes: content
-                    })
-                }
-            );
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                alert(data.message || 'Error al subir los códigos OBD2');
-                return;
-            }
-
-            alert("¡Diagnóstico OBD-II actualizado con éxito! 🚗💨");
-            setResults(data.translations || []);
-
-        } catch (error) {
-            console.error("Error leyendo archivo:", error);
-            alert("Error leyendo el archivo");
-        } finally {
-            if (fileInputRef.current) {
-                fileInputRef.current.value = "";
-            }
-        }
-    };
 
     // Función auxiliar para obtener la URL limpia del servidor de imágenes (remueve el segmento /api)
     const getBaseUrl = () => {
@@ -236,45 +197,67 @@ function OBD2() {
                                     </div>
                                 </div>
 
-                                {/* SECCIÓN DE UPLOAD ABAJO */}
-                                <div className="obd2-card" style={{ marginTop: '30px' }}>
-                                    <h2>Diagnóstico OBD-II</h2>
-                                    <p style={{ color: '#9ca3af', marginBottom: '20px', fontSize: '15px', lineHeight: '1.6' }}>
-                                        Sube el archivo de diagnóstico <code>.txt</code> extraído de tu escáner OBD-II para traducir los códigos de falla y analizar su impacto en el vehículo.
-                                    </p>
 
-                                    <input
-                                        type="file"
-                                        accept=".txt"
-                                        hidden
-                                        ref={fileInputRef}
-                                        onChange={handleUploadAndSend}
-                                    />
-
-                                    <button
-                                        className="send-button"
-                                        onClick={() => fileInputRef.current.click()}
-                                    >
-                                        <FaFileUpload style={{ marginRight: '10px' }} />
-                                        Seleccionar y Analizar Archivo .TXT
-                                    </button>
-                                </div>
 
                                 {/* RESULTADOS */}
                                 {results.length > 0 && (
                                     <div className="results-container">
                                         <h2>Códigos Detectados</h2>
                                         <div className="results-grid">
-                                            {results.map((item, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="result-card"
-                                                >
-                                                    <h3>{item.code}</h3>
-                                                    <p>{item.description}</p>
-                                                    <span>Sistemas Afectados: {item.affects}</span>
-                                                </div>
-                                            ))}
+                                            {results.map((item, index) => {
+                                                const isExpanded = !!expandedCodes[index];
+                                                return (
+                                                    <div
+                                                        key={index}
+                                                        className={`result-card ${isExpanded ? 'expanded' : ''}`}
+                                                        onClick={() => toggleCode(index)}
+                                                    >
+                                                        <div className="result-card-header">
+                                                            <div className="code-header-info">
+                                                                <span className="code-badge">{item.code}</span>
+                                                                <h3 className="code-title">{item.description}</h3>
+                                                            </div>
+                                                            <div className="chevron-icon-container">
+                                                                {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
+                                                            </div>
+                                                        </div>
+
+                                                        <div className={`result-card-content ${isExpanded ? 'expanded' : ''}`}>
+                                                            <div className="result-field">
+                                                                <div className="field-label">
+                                                                    <FaInfoCircle className="field-icon label-icon-affects" />
+                                                                    <span>Sistemas Afectados</span>
+                                                                </div>
+                                                                <p className="field-value badge-affects">{item.affects}</p>
+                                                            </div>
+
+                                                            {item.symptoms && (
+                                                                <div className="result-field">
+                                                                    <div className="field-label">
+                                                                        <FaVolumeUp className="field-icon label-icon-symptoms" />
+                                                                        <span>Síntomas / Ruidos Comunes</span>
+                                                                    </div>
+                                                                    <p className="field-value text-symptoms">{item.symptoms}</p>
+                                                                </div>
+                                                            )}
+
+                                                            {item.guide && (
+                                                                <div className="result-field">
+                                                                    <div className="field-label">
+                                                                        <FaTools className="field-icon label-icon-guide" />
+                                                                        <span>Guía de Diagnóstico Rápido</span>
+                                                                    </div>
+                                                                    <div className="field-value guide-steps">
+                                                                        {item.guide.split('\n').map((step, sIdx) => (
+                                                                            <p key={sIdx} className="guide-step">{step}</p>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 )}
