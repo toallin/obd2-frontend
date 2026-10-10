@@ -118,7 +118,8 @@ function History() {
             {vehiclesWithTrips.map((vehicle) => {
               const trip = vehicle.latestTrip;
               const hasTrip = !!trip;
-              const hasObdCodes = hasTrip && trip.obdCodes && trip.obdCodes.trim() !== "";
+              const obdCodes = extractObdCodes(trip);
+              const hasObdCodes = Boolean(obdCodes);
 
               // Estado de viaje
               let cardClass = "no-trips";
@@ -167,7 +168,18 @@ function History() {
                       {hasObdCodes ? '⚠️ Códigos OBD2 Activos (Último Viaje)' : '✅ Sistema OBD2'}
                     </div>
                     {hasObdCodes ? (
-                      <span className="obd-codes">{trip.obdCodes}</span>
+                      <div>
+                        <span className="obd-codes">{obdCodes}</span>
+                        {trip.obdTranslations?.length > 0 && (
+                          <ul className="obd-translation-list">
+                            {trip.obdTranslations.map((item) => (
+                              <li key={item.code}>
+                                <strong>{item.code}:</strong> {item.description}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
                     ) : hasTrip ? (
                       <span className="obd-ok-text">Sin códigos de falla detectados (¡Todo OK!)</span>
                     ) : (
@@ -235,6 +247,22 @@ function History() {
                       marginTop: 'auto'
                     }}>
                       <strong>Alerta IA:</strong> {trip.aiAnalysis.warnings[0]}
+                    </div>
+                  )}
+
+                  {hasTrip && trip.aiAnalysis?.codeAnalysis?.length > 0 && (
+                    <div className="history-code-analysis">
+                      <strong>Análisis OBD2 de IA</strong>
+                      {trip.aiAnalysis.codeAnalysis.map((item, index) => (
+                        <div className="history-code-analysis-item" key={`${item.code}-${index}`}>
+                          <strong>{item.code}: {item.meaning}</strong>
+                          <p><b>Causa:</b> {item.cause}</p>
+                          <p><b>Riesgo:</b> {item.risk}</p>
+                          <p><b>Durante el viaje:</b> {item.whatCanHappenDuringTrip}</p>
+                          <p><b>Revisión recomendada:</b> {item.mechanicAdvice}</p>
+                          <p><b>Reparación:</b> {item.possibleRepair} ({item.repairCostLevel})</p>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>

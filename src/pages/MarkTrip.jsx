@@ -17,6 +17,7 @@ function MarkTrip() {
   const [destination, setDestination] = useState('');
 
   const [analysis, setAnalysis] = useState(null);
+  const [analysisError, setAnalysisError] = useState('');
   const [tripInfo, setTripInfo] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -178,8 +179,6 @@ function MarkTrip() {
       return;
     }
 
-    console.log("Activando estimación geométrica automática...");
-
     if (currentPolylineRef.current) {
       currentPolylineRef.current.setMap(null);
     }
@@ -240,7 +239,6 @@ function MarkTrip() {
     };
 
     try {
-      console.log("Enviando solicitud de ruta a DirectionsService...");
       directionsService.route(request, (result, status) => {
         if (status === 'OK' && result.routes.length > 0) {
           const route = result.routes[0];
@@ -296,6 +294,8 @@ function MarkTrip() {
     }
 
     setLoading(true);
+    setAnalysis(null);
+    setAnalysisError('');
     const token = localStorage.getItem('token');
 
     const distanceNumber = tripInfo ? tripInfo.distanceKm : 0;
@@ -310,8 +310,6 @@ function MarkTrip() {
         durationMin: durationNumber,
       };
 
-      console.log("Enviando este objeto al backend:", bodyPayload);
-
       const res = await fetch(`${import.meta.env.VITE_API_URL}/trips`, {
         method: 'POST',
         headers: {
@@ -323,20 +321,23 @@ function MarkTrip() {
 
       const data = await res.json();
 
-      if (data.trip) {
+      if (!res.ok) {
+        throw new Error(data.message || 'No se pudo completar el análisis del viaje.');
+      }
+
+      if (data.trip || data.aiResult) {
         setAnalysis({
-          ...(data.trip.aiAnalysis || {}),
-          durationMin: data.trip.durationMin,
-          distanceKm: data.trip.distanceKm,
+          ...(data.aiResult || data.trip?.aiAnalysis || {}),
+          durationMin: data.trip?.durationMin || durationNumber,
+          distanceKm: data.trip?.distanceKm || distanceNumber,
         });
-        alert('Viaje creado con éxito y analizado 🚗');
       } else {
-        console.warn("El backend respondió, pero no creó el objeto trip correctamente:", data);
+        console.warn('El backend respondió sin trip o aiResult:', data);
       }
 
     } catch (err) {
       console.error("Error al guardar el viaje en la base de datos:", err);
-      alert('Error en el servidor al crear viaje');
+      setAnalysisError(err.message || 'Error en el servidor al crear viaje.');
     } finally {
       setLoading(false);
     }
@@ -378,6 +379,13 @@ function MarkTrip() {
           </button>
         </div>
 
+        {analysisError && (
+          <div className="card warning" role="alert">
+            <h3>No se pudo analizar el viaje</h3>
+            <p>{analysisError}</p>
+          </div>
+        )}
+
         <div ref={mapRef} className="map-container" />
 
         {/* 🔹 RESULTADO COMPLETO DEL ANÁLISIS BACKEND */}
@@ -417,6 +425,43 @@ function MarkTrip() {
                 <h3>💡 Recomendaciones del sistema</h3>
                 <ul>
                   {analysis.recommendations.map((r, i) => <li key={i}>{r}</li>)}
+                </ul>
+              </div>
+            )}
+
+            {analysis.tripAdvice && (
+              <div className="card recommend">
+                <h3>🚦 Recomendación para el viaje</h3>
+                <p><strong>¿Puede viajar?</strong> {analysis.tripAdvice.canTravel}</p>
+                <p>{analysis.tripAdvice.explanation}</p>
+              </div>
+            )}
+
+            {analysis.codeAnalysis?.length > 0 && (
+              <div className="card code-analysis">
+                <h3>🔧 Análisis de cada código OBD2</h3>
+                {analysis.codeAnalysis.map((item, index) => (
+                  <article className="code-analysis-item" key={`${item.code}-${index}`}>
+                    <h4>{item.code}</h4>
+                    <p><strong>Significado:</strong> {item.meaning}</p>
+                    <p><strong>Causa probable:</strong> {item.cause}</p>
+                    <p><strong>Riesgo:</strong> {item.risk}</p>
+                    <p><strong>Durante el viaje:</strong> {item.whatCanHappenDuringTrip}</p>
+                    <p><strong>Qué revisar:</strong> {item.mechanicAdvice}</p>
+                    <p><strong>Posible reparación:</strong> {item.possibleRepair}</p>
+                    <p><strong>Costo estimado:</strong> {item.repairCostLevel}</p>
+                  </article>
+                ))}
+              </div>
+            )}
+
+            {analysis.futureFailurePrediction?.length > 0 && (
+              <div className="card warning">
+                <h3>🔮 Posibles fallas durante el viaje</h3>
+                <ul>
+                  {analysis.futureFailurePrediction.map((failure, index) => (
+                    <li key={index}>{failure}</li>
+                  ))}
                 </ul>
               </div>
             )}

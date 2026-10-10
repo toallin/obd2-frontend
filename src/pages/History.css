@@ -214,6 +214,32 @@
   color: #f1f5f9;
 }
 
+.obd-translation-list {
+  margin: 0.75rem 0 0;
+  padding-left: 1.2rem;
+  color: #cbd5e1;
+}
+
+.obd-translation-list li {
+  margin-top: 0.35rem;
+}
+
+.history-code-analysis {
+  margin-top: 1rem;
+  color: #e2e8f0;
+}
+
+.history-code-analysis-item {
+  padding: 0.7rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.history-code-analysis-item p {
+  margin: 0.35rem 0;
+  color: #cbd5e1;
+  font-size: 0.88rem;
+}
+
 /* Metrics grid (distance & duration) */
 .metrics-row {
   display: grid;

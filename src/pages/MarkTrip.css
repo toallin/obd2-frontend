@@ -150,6 +150,24 @@
   border-radius: 10px;
 }
 
+.code-analysis {
+  margin-top: 10px;
+}
+
+.code-analysis-item {
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-analysis-item h4 {
+  margin: 0 0 8px;
+  color: #fbbf24;
+}
+
+.code-analysis-item p {
+  margin: 6px 0;
+}
+
 /* =========================
    RESPONSIVE
 ========================= */
