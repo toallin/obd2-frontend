@@ -37,6 +37,12 @@ function RegisterVehicle() {
     const registerVehicle = async (e) => {
         e.preventDefault();
 
+        // VALIDACIÓN DE IMAGEN OBLIGATORIA
+        if (!image) {
+            alert('Por favor, sube una imagen del vehículo antes de guardar. 📷');
+            return; // Detiene la función y no guarda nada
+        }
+
         try {
             const token = localStorage.getItem('token');
             const formData = new FormData();
@@ -44,11 +50,7 @@ function RegisterVehicle() {
             formData.append('brand', brand);
             formData.append('model', model);
             formData.append('year', year);
-
-            // Imagen
-            if (image) {
-                formData.append('image', image);
-            }
+            formData.append('image', image); // Pasó la validación, así que siempre existirá
 
             // CORREGIDO: Dinámico para Local y Producción (Render) usando la URL base limpia
             const res = await fetch(
@@ -146,7 +148,7 @@ function RegisterVehicle() {
                             {/* SUBIR IMAGEN */}
                             <label className="upload-box">
                                 <FaImage />
-                                {image ? image.name : 'Subir Imagen'}
+                                {image ? image.name : 'Subir Imagen (Obligatorio) *'}
                                 <input
                                     type="file"
                                     hidden
